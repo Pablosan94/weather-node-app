@@ -15,7 +15,7 @@ const questions = [
 ];
 
 const showMenu = async () => {
-  console.clear();
+  // console.clear();
 
   const { option } = await inquirer.prompt(questions);
 

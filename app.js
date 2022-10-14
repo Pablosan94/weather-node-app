@@ -25,6 +25,8 @@ const main = async () => {
             (location) => location.id === id
           );
 
+          searches.addToHistory(selectedLocation.name);
+
           const weather = await searches.weather(
             selectedLocation.lat,
             selectedLocation.lng
@@ -39,6 +41,11 @@ const main = async () => {
           console.log('Max', weather.max);
           console.log('Weather description:', weather.description);
         }
+        break;
+      case '2':
+        searches.capitalizedHistory.forEach((location) => {
+          console.log(`${location}`);
+        });
         break;
     }
 
