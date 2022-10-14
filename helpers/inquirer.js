@@ -16,9 +16,6 @@ const questions = [
 
 const showMenu = async () => {
   console.clear();
-  console.log('=================='.green);
-  console.log(' Select an option'.white);
-  console.log('==================\n'.green);
 
   const { option } = await inquirer.prompt(questions);
 
@@ -42,7 +39,7 @@ const readInput = async (message) => {
   const question = [
     {
       type: 'input',
-      name: 'description',
+      name: 'location',
       message,
       validate(value) {
         if (value.length === 0) {
@@ -53,9 +50,9 @@ const readInput = async (message) => {
     },
   ];
 
-  const { description } = await inquirer.prompt(question);
+  const { location } = await inquirer.prompt(question);
 
-  return description;
+  return location;
 };
 
 const confirm = async (message) => {
@@ -71,9 +68,37 @@ const confirm = async (message) => {
   return ok;
 };
 
+const listLocations = async (locations = []) => {
+  const choices = locations.map((location) => {
+    return {
+      value: location.id,
+      name: `${location.name}`,
+    };
+  });
+
+  choices.push({
+    value: 'Cancel',
+    name: 'Cancel'.bgRed.white,
+  });
+
+  const question = [
+    {
+      type: 'list',
+      name: 'id',
+      message: 'Select a result:',
+      choices,
+    },
+  ];
+
+  const { id } = await inquirer.prompt(question);
+
+  return id;
+};
+
 module.exports = {
   showMenu,
   pause,
   readInput,
   confirm,
+  listLocations,
 };
